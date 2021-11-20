@@ -114,13 +114,19 @@ export async function getUserInfo(
       }
     }
   `;
-  const data = await graphQLClient.request<UserDetailModel>(query, {
-    after,
-  });
-  return data;
+  try {
+    const data = await graphQLClient.request<UserDetailModel>(query, {
+      after,
+    });
+    return data;
+    
+  } catch (error) {
+    return null
+  }
 }
 
 export async function getRepoDetails(repo_name: string, owner_name: string) {
+ 
   const query = gql`
   {
     repository(name: "${repo_name}", owner: "${owner_name}") {
@@ -136,6 +142,11 @@ export async function getRepoDetails(repo_name: string, owner_name: string) {
   }
   `;
 
-  const data = await graphQLClient.request<RepoDetailModel>(query);
-  return data;
+  try {
+    const data = await graphQLClient.request<RepoDetailModel>(query);
+    return data;
+  } catch (error) {
+      return null
+  }
+
 }

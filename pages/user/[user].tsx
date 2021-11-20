@@ -82,7 +82,7 @@ const User: React.FC<{ user: UserDetailModel["user"] }> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const user = await getUserInfo(ctx.params.user as string);
-  if (!user.user) {
+  if (!user) {
     return { notFound: true };
   }
   return {
