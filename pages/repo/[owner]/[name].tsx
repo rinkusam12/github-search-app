@@ -50,6 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   let name = ctx.params.name as string;
   let owner = ctx.params.owner as string;
   const repo = await getRepoDetails(name, owner);
+  if(!repo.repository) return { notFound: true }
   return {
     props: {
       repo,

@@ -6,7 +6,9 @@ import { Repo, UserDetailModel } from "../../lib/UserDetailModel";
 
 const User: React.FC<{ user: UserDetailModel["user"] }> = (props) => {
   const [loading, setLoading] = useState(false);
-  const [hasNext, setHasNext] = useState(props.user.repositoriesContributedTo.pageInfo.hasNextPage);
+  const [hasNext, setHasNext] = useState(
+    props.user.repositoriesContributedTo.pageInfo.hasNextPage
+  );
   const [contribRepos, setContribRepos] = useState<Repo[]>(
     props.user.repositoriesContributedTo.nodes
   );
@@ -61,8 +63,10 @@ const User: React.FC<{ user: UserDetailModel["user"] }> = (props) => {
                     setAfter(
                       user.user.repositoriesContributedTo.pageInfo.endCursor
                     );
-                    setLoading(false)
-                    setHasNext(user.user.repositoriesContributedTo.pageInfo.hasNextPage)
+                    setLoading(false);
+                    setHasNext(
+                      user.user.repositoriesContributedTo.pageInfo.hasNextPage
+                    );
                   }}
                 >
                   {loading ? "Loading..." : "Load More"}
@@ -78,6 +82,9 @@ const User: React.FC<{ user: UserDetailModel["user"] }> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const user = await getUserInfo(ctx.params.user as string);
+  if (!user.user) {
+    return { notFound: true };
+  }
   return {
     props: {
       user: user.user,
