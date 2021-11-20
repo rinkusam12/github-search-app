@@ -1,0 +1,41 @@
+.Input {
+  label {
+    @apply text-body2 text-input-active;
+    transition: all 0.3s ease;
+  }
+  input,
+  textarea {
+    @apply text-body leading-5 text-input-active border-2 outline-none;
+    transition: all 0.3s ease;
+  }
+  small {
+    @apply text-small leading-3 mt-1;
+  }
+  &.hover {
+    input,
+    textarea {
+      @apply border-input-hover;
+    }
+  }
+  &.active {
+    label {
+      @apply text-input-activeBorder;
+    }
+    input,
+    textarea {
+      @apply border-input-activeBorder caret-input-activeBorder;
+    }
+  }
+  &.error {
+    label {
+      @apply text-input-error;
+    }
+    input,
+    textarea {
+      @apply caret-input-error border-input-error;
+    }
+    small{
+        @apply text-input-error;
+    }
+  }
+}
